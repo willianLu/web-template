@@ -1,0 +1,37 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+  font-family: Open Sans, -apple-system, BlinkMacSystemFont, Helvetica Neue,
+    Helvetica, Segoe UI, Arial, Roboto, PingFang SC, miui, Hiragino Sans GB,
+    Microsoft Yahei, sans-serif;
+  overflow: hidden;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+// 设置滚动条样式
+::-webkit-scrollbar-track-piece {
+  background: #f4f4f4;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 20px;
+}
