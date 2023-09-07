@@ -16,15 +16,22 @@ export const copy: Directive = {
       el.copyValue = value
       const arg = binding.arg ?? 'click'
       // Register using addEventListener on mounted, and removeEventListener automatically on unmounted
-      el.clearUp = useEventListener(el, arg, () => {
-        copyTextToClipboard(el.copyValue)
-          .then(() => {
-            message('复制成功', { type: 'success' })
-          })
-          .catch(() => {
-            message('复制失败', { type: 'error' })
-          })
-      })
+      el.clearUp = useEventListener(
+        el,
+        arg,
+        () => {
+          copyTextToClipboard(el.copyValue)
+            .then(() => {
+              message('复制成功', { type: 'success' })
+            })
+            .catch(() => {
+              message('复制失败', { type: 'error' })
+            })
+        },
+        {
+          manualManagement: true
+        }
+      )
     } else {
       throw new Error('[Directive: copy]: need value! Like v-copy="modelValue"')
     }

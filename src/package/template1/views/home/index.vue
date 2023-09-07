@@ -191,7 +191,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, ref, onMounted, nextTick } from 'vue'
+import { reactive, ref } from 'vue'
 import { useEventListener } from '@lib/hooks/useEventListener'
 import { useWindowSize } from '@lib/hooks/useWindowSize'
 import PanHeader from '@/template1/components/header/index.vue'
@@ -299,21 +299,17 @@ function handleScroolBg(app: Element) {
   }
 }
 
-onMounted(() => {
-  nextTick(() => {
-    const app = document.getElementById('app')
-    if (app && app.scrollHeight > app.clientHeight) {
-      useEventListener(app, 'scroll', () => {
-        window.requestAnimationFrame(() => {
-          handlePageAnimate(app)
-          handleScroolBg(app)
-        })
-      })
-      // 初始化页面元素动画
+const app = document.getElementById('app')
+if (app) {
+  useEventListener(app, 'scroll', () => {
+    window.requestAnimationFrame(() => {
       handlePageAnimate(app)
-    }
+      handleScroolBg(app)
+    })
   })
-})
+  // 初始化页面元素动画
+  handlePageAnimate(app)
+}
 // 走马灯切换事件
 function handleCarouselChange(index: number) {
   carouselIndex.value = index

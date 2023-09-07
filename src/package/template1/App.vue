@@ -1,6 +1,8 @@
 <template>
   <RouterView v-slot="{ Component }">
-    <component :is="Component"></component>
+    <KeepAlive>
+      <component :is="Component"></component>
+    </KeepAlive>
   </RouterView>
 </template>
 <script setup lang="ts">

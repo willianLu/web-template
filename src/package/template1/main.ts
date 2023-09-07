@@ -9,11 +9,6 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-// 开发环境动态引入mock
-// if (import.meta.env.MODE === 'development') {
-//   import('./mock/index')
-// }
-
 // 自定义指令
 import * as directives from '@lib/directives'
 

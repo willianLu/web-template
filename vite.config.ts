@@ -43,6 +43,7 @@ export default defineConfig(async () => {
           }
         },
         build: {
+          emptyOutDir: true,
           rollupOptions: {
             output: {
               // 打包文件输出地址

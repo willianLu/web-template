@@ -83,6 +83,7 @@
   animation-duration: calc(var(--animate-duration) * 3);
 }
 
+// 弹起效果
 @keyframes bounce {
 
   from,
@@ -119,6 +120,7 @@
   transform-origin: center bottom;
 }
 
+// 淡入效果
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -133,6 +135,7 @@
   animation-name: fadeIn;
 }
 
+// 向上淡入效果
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -149,6 +152,7 @@
   animation-name: fadeInUp;
 }
 
+// 比例缩放淡入效果
 @keyframes fadeInScale {
   from {
     opacity: 0;

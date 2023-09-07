@@ -6,7 +6,7 @@
       <p style="color: #666">抱歉，您访问的页面不存在～</p>
       <p style="margin-top: 16px">
         <a class="link" href="/#">
-          <span> >> 返回首页</span>
+          <span> >>> 返回首页</span>
         </a>
       </p>
     </div>
@@ -31,6 +31,7 @@ defineOptions({
 .link {
   line-height: 24px;
   font-size: 16px;
+  color: #ee5353;
   &:hover {
     color: #409eff;
   }

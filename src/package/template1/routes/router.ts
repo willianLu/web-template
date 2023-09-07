@@ -33,13 +33,25 @@ if (import.meta.env.MODE === 'development') {
     }
   })
 }
+// 未发现的路由，跳转404
+routes.push({
+  path: '/:pathMatch(.*)*',
+  redirect: '/404'
+})
 
 // 创建路由实例并传递 `routes` 配置
 const router = createRouter({
   // 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
   history: createWebHashHistory(),
   routes,
-  strict: true
+  strict: true,
+  scrollBehavior(to, from) {
+    if (to.path !== from.path) {
+      // 滚动到顶部
+      const app = document.getElementById('app')
+      app?.scrollTo(0, 0)
+    }
+  }
 })
 
 export const constantRoutes = routes

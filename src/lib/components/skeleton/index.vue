@@ -73,7 +73,7 @@ const style = computed(() => {
   return res
 })
 function getValueUnit(num: string | number) {
-  if (isString(num) && num.endsWith('%')) {
+  if (isString(num) && (num.endsWith('%') || num.endsWith('px'))) {
     return num
   }
   return num + 'px'

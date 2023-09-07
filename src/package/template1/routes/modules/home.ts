@@ -11,6 +11,14 @@ const route: RouteRecordRaw = {
       meta: {
         title: '首页'
       }
+    },
+    {
+      path: 'about',
+      name: 'AboutPage',
+      component: () => import('@/template1/views/about/index.vue'),
+      meta: {
+        title: '关于我们'
+      }
     }
   ]
 }

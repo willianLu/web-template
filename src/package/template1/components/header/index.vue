@@ -1,18 +1,18 @@
 <template>
   <nav class="nav-wrap" :class="className">
     <div class="nav-content flex-center-space-between">
-      <div class="logo">WEB 模版</div>
+      <div class="logo" @click="toHome">WEB 模版</div>
       <ul v-if="pageWidth > 768" class="flex-v-center nav-right">
         <li
           v-for="(item, index) in menuList"
           :key="index"
           class="flex-center"
           :class="{
-            active: currentMenu === item
+            active: route.path === item.path
           }"
           @click="handleMenuChange(item)"
         >
-          {{ item }}
+          {{ item.label }}
         </li>
       </ul>
       <template v-else>
@@ -22,31 +22,36 @@
             @click="handleNavToggle"
           ></svgIcon>
         </div>
-        <ul
-          class="nav-menu-wrap"
-          :style="{ height: isToggle ? '100vh' : '0px' }"
-        >
-          <li
-            v-for="(item, index) in menuList"
-            :key="index"
-            :class="{
-              active: currentMenu === item
-            }"
-            @click="handleMenuChange(item)"
-          >
-            {{ item }}
-          </li>
-        </ul>
       </template>
     </div>
+    <ul
+      v-if="pageWidth <= 768"
+      class="nav-menu-wrap"
+      :style="{ height: isToggle ? '100vh' : '0px' }"
+      @click="handleNavToggle"
+    >
+      <li
+        v-for="(item, index) in menuList"
+        :key="index"
+        :class="{
+          active: route.path === item.path
+        }"
+        @click.stop="handleMenuChange(item)"
+      >
+        {{ item.label }}
+      </li>
+    </ul>
   </nav>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref, computed } from 'vue'
+import { ref, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import svgIcon from '@lib/components/svg-icon.vue'
 import { useEventListener } from '@lib/hooks/useEventListener'
 import { useWindowSize } from '@lib/hooks/useWindowSize'
 
+const route = useRoute()
+const router = useRouter()
 const props = defineProps({
   // 模式，默认：fixed固定
   // 其他，home 首页
@@ -56,7 +61,7 @@ const props = defineProps({
   }
 })
 // 是否固定的
-const isFixed = ref(false)
+const isFixed = ref(true)
 const { width: pageWidth } = useWindowSize()
 const isToggle = ref(false)
 const className = computed(() => {
@@ -65,25 +70,31 @@ const className = computed(() => {
   }
   return 'nav-fixed'
 })
-const menuList = ['WELCOME', 'MENU', 'CONTACT']
-const currentMenu = ref('')
-onMounted(() => {
-  if (props.mode === 'home') {
-    const app = document.getElementById('app')
-    if (app && app.scrollHeight > app.clientHeight) {
-      useEventListener(app, 'scroll', event => {
-        isFixed.value = (event.target as any).scrollTop > 0
-      })
-    } else {
-      isFixed.value = true
-    }
+const menuList = [
+  {
+    label: '关于我们',
+    path: '/about'
   }
-})
+]
+const app = document.getElementById('app')
+if (props.mode === 'home' && app) {
+  isFixed.value = false
+  useEventListener(app, 'scroll', event => {
+    isFixed.value = (event.target as any).scrollTop > 0
+  })
+}
+function toHome() {
+  if (isToggle.value) {
+    isToggle.value = false
+  }
+  router.push('/')
+}
 function handleNavToggle() {
   isToggle.value = !isToggle.value
 }
-function handleMenuChange(item: string) {
-  currentMenu.value = item
+function handleMenuChange(item: any) {
+  handleNavToggle()
+  router.push(item.path)
 }
 </script>
 <style lang="scss">
@@ -119,6 +130,7 @@ function handleMenuChange(item: string) {
 .logo {
   font-size: 18px;
   font-weight: bold;
+  cursor: pointer;
 }
 .nav-right {
   height: 100%;

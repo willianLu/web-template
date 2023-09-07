@@ -12,6 +12,8 @@ import { onMountedOrActivated, inBrowser } from '@lib/utils/hook'
 type TargetRef = EventTarget | Ref<EventTarget | undefined>
 
 export type UseEventListenerOptions = {
+  // 手动管理事件监听与清除
+  manualManagement?: boolean
   capture?: boolean
   passive?: boolean
 }
@@ -67,15 +69,17 @@ export function useEventListener(
       attached = false
     }
   }
-  // 添加事件，用于指令等非组件初始化场景
-  add(target)
-  // unmounted生命周期 移除事件监听
-  onBeforeUnmount(() => remove(target))
-  // deactivated生命周期 移除事件监听
-  onDeactivated(() => remove(target))
-  // mounted 和 activated 生命周期添加事件监听
-  onMountedOrActivated(() => add(target))
-
+  if (options.manualManagement) {
+    // 添加事件，用于指令等非组件初始化场景
+    add(target)
+  } else {
+    // unmounted生命周期 移除事件监听
+    onBeforeUnmount(() => remove(target))
+    // deactivated生命周期 移除事件监听
+    onDeactivated(() => remove(target))
+    // mounted 和 activated 生命周期添加事件监听
+    onMountedOrActivated(() => add(target))
+  }
   let stopWatch: WatchStopHandle
 
   if (isRef(target)) {

@@ -50,11 +50,13 @@
       <div class="page-container flex-center-space-between">
         <div>Copyright © 2023.Company name All rights reserved.</div>
         <div class="flex-v-center link">
-          <a href="https://weixin.qq.com/"><SvgIcon name="wx"></SvgIcon></a>
+          <a href="https://weixin.qq.com/" target="_blank"
+            ><SvgIcon name="wx"></SvgIcon
+          ></a>
           <a href="https://www.1688.com/" target="_blank"
             ><SvgIcon name="ali"></SvgIcon
           ></a>
-          <a href="https://github.com/willianLu"
+          <a href="https://github.com/willianLu/web-template" target="_blank"
             ><SvgIcon name="github"></SvgIcon
           ></a>
         </div>
