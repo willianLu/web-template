@@ -45,7 +45,7 @@
             <img
               class="pan-animate"
               data-animate-effect="fadeInUp"
-              src="@package/assets/images/img_1.jpg"
+              src="@template/assets/images/img_1.jpg"
               style="width: 100%"
             />
           </el-col>
@@ -65,9 +65,11 @@
           <template v-for="(item, index) in cateList" :key="index">
             <li
               v-if="pageWidth <= 768 || index < 2 || index > 3"
-              :class="'pan-animate cate-img cate-img' + item.icon"
+              class="pan-animate"
               data-animate-effect="fadeInScale"
-            ></li>
+            >
+              <div :class="'cate-img cate-img' + item.icon"></div>
+            </li>
             <li class="pan-animate" data-animate-effect="fadeInScale">
               <div class="cate-desc">
                 <h3>{{ item.title }}</h3>
@@ -77,9 +79,11 @@
             </li>
             <li
               v-if="pageWidth > 768 && (index === 2 || index === 3)"
-              :class="'pan-animate cate-img cate-img' + item.icon"
+              class="pan-animate"
               data-animate-effect="fadeInScale"
-            ></li>
+            >
+              <div :class="'cate-img cate-img' + item.icon"></div>
+            </li>
           </template>
         </ul>
       </div>
@@ -98,7 +102,7 @@
             <div class="cate-avatar-wrap">
               <img
                 class="cate-avatar"
-                src="@package/assets/images/img_square_1.jpg"
+                src="@template/assets/images/img_square_1.jpg"
               />
               <div class="cate-info">
                 <span class="price">$22.99</span>
@@ -125,7 +129,7 @@
               class="cate-desc2-wrap pan-animate"
               data-animate-effect="fadeInUp"
             >
-              <img src="@package/assets/images/img_square_1.jpg" />
+              <img src="@template/assets/images/img_square_1.jpg" />
               <div class="cate-desc2">
                 <p class="date">June 29, 2017</p>
                 <h3>Laboriosam Quod Dignissimos</h3>
@@ -191,7 +195,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, onActivated } from 'vue'
 import { useEventListener } from '@lib/hooks/useEventListener'
 import { useWindowSize } from '@lib/hooks/useWindowSize'
 import PanHeader from '@/template1/components/header/index.vue'
@@ -310,6 +314,12 @@ if (app) {
   // 初始化页面元素动画
   handlePageAnimate(app)
 }
+// 激活时，处理背景图位置
+onActivated(() => {
+  if (app) {
+    handleScroolBg(app)
+  }
+})
 // 走马灯切换事件
 function handleCarouselChange(index: number) {
   carouselIndex.value = index
@@ -326,23 +336,23 @@ function handleCarouselChange(index: number) {
   height: 100%;
 }
 .hero-bg-1 {
-  background: url(@package/assets/images/hero_bg_1.jpg) no-repeat;
+  background: url(@template/assets/images/hero_bg_1.jpg) no-repeat;
   background-size: cover;
 }
 .hero-bg-2 {
-  background: url(@package/assets/images/hero_bg_2.jpg) no-repeat;
+  background: url(@template/assets/images/hero_bg_2.jpg) no-repeat;
   background-size: cover;
 }
 .hero-bg-3 {
-  background: url(@package/assets/images/hero_bg_3.jpg) no-repeat;
+  background: url(@template/assets/images/hero_bg_3.jpg) no-repeat;
   background-size: cover;
 }
 .hero-bg-4 {
-  background: url(@package/assets/images/hero_bg_4.jpg) no-repeat;
+  background: url(@template/assets/images/hero_bg_4.jpg) no-repeat;
   background-size: cover;
 }
 .hero-bg-5 {
-  background: url(@package/assets/images/hero_bg_5.jpg) no-repeat;
+  background: url(@template/assets/images/hero_bg_5.jpg) no-repeat;
   background-size: cover;
 }
 .pan-carousel-content {
@@ -456,34 +466,42 @@ function handleCarouselChange(index: number) {
   margin-top: -13%;
   li {
     width: 25%;
+    overflow: hidden;
   }
 }
 .cate-img {
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+  transition: transform 0.3s;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 .cate-img1 {
-  background-image: url(@package/assets/images/img_square_1.jpg);
+  background-image: url(@template/assets/images/img_square_1.jpg);
 }
 .cate-img2 {
-  background-image: url(@package/assets/images/img_square_2.jpg);
+  background-image: url(@template/assets/images/img_square_2.jpg);
 }
 
 .cate-img3 {
-  background-image: url(@package/assets/images/img_square_3.jpg);
+  background-image: url(@template/assets/images/img_square_3.jpg);
 }
 .cate-img4 {
-  background-image: url(@package/assets/images/img_square_4.jpg);
+  background-image: url(@template/assets/images/img_square_4.jpg);
 }
 
 .cate-img5 {
-  background-image: url(@package/assets/images/img_square_5.jpg);
+  background-image: url(@template/assets/images/img_square_5.jpg);
 }
 
 .cate-desc {
   position: relative;
   padding: 40px;
+  height: 100%;
   text-align: center;
   line-height: 24px;
   background-color: #fff;
@@ -536,11 +554,20 @@ function handleCarouselChange(index: number) {
   }
 }
 .cate-desc2-wrap {
+  overflow: hidden;
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+  }
   img {
     width: 100%;
+    transition: transform 0.3s;
   }
 }
 .cate-desc2 {
+  position: relative;
+  z-index: 1;
   padding: 20px;
   line-height: 24px;
   background-color: #fff;

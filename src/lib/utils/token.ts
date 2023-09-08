@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 // @ts-ignore
-import Config from '@package/config'
+import Config from '@template/config'
 
 const TOKEN = 'AUTH_TOKEN'
 

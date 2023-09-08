@@ -44,7 +44,7 @@
   </nav>
 </template>
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onActivated } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import svgIcon from '@lib/components/svg-icon.vue'
 import { useEventListener } from '@lib/hooks/useEventListener'
@@ -83,6 +83,10 @@ if (props.mode === 'home' && app) {
     isFixed.value = (event.target as any).scrollTop > 0
   })
 }
+// 激活时，处理头部背景显示
+onActivated(() => {
+  isFixed.value = app ? app.scrollTop > 0 : false
+})
 function toHome() {
   if (isToggle.value) {
     isToggle.value = false
@@ -157,7 +161,7 @@ function handleMenuChange(item: any) {
   padding-top: 60px;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.7);
   box-sizing: border-box;
   overflow-y: auto;
   transition: all 0.3s;

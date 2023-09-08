@@ -1,7 +1,7 @@
 <template>
   <PanHeader></PanHeader>
   <div class="compony-img"></div>
-  <section class="pan-container pan-scroll-bg hero-bg-4 pan-scroll-special">
+  <section class="pan-container">
     <div class="pan-row">
       <div class="compony-title">Company Profile</div>
       <div class="compony-desc">
@@ -47,7 +47,7 @@ defineOptions({
 <style lang="scss" scoped>
 .compony-img {
   height: 468px;
-  background: url(@package/assets/images/hero_bg_2.jpg) no-repeat;
+  background: url(@template/assets/images/hero_bg_2.jpg) no-repeat;
   background-size: cover;
 }
 .pan-container {

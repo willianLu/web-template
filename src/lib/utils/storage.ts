@@ -1,7 +1,7 @@
 import ms from './ms'
 import { isObject } from './util'
 // @ts-ignore
-import Config from '@package/config'
+import Config from '@template/config'
 
 export interface StorageOptions {
   maxAge?: number | string

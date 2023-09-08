@@ -1,13 +1,13 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
 // @ts-ignore
-import interceptors from '@package/utils/interceptors'
+import interceptors from '@template/utils/interceptors'
 import {
   CustomAxiosRequestConfig,
   CustomResponseData,
   RequestBackData
 } from './types'
 // @ts-ignore
-import Config from '@package/config'
+import Config from '@template/config'
 
 // 创建请求实例
 const HttpRequest: AxiosInstance = axios.create({
